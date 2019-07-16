@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <title> Hello World!!</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href = "./css/index.css"/>
+    </head>
+
+    <body>
+        
+        <!-- 현재 시간 -->
+        <div class = "js-clock">
+            <h1>00:00:00</h1>
+        </div>
+
+        <!-- 사용자 -->
+        <form class = "js-greetingForm form">
+            <input type = "text" placeholder = "what is your name?"/>
+        </form>
+        <h4 class ="js-greetings greetings"></h4>
+        
+        <!--할일 -->
+        <form class = "js-toDoForm">
+            <input type="text" placeholder="Write a to do"/>
+        </form>
+        <ul class ="js-toDoList"></ul>
+        <span class="js-weather"></span>
+        <script src = "./js/clock.js"></script>
+        <script src = "./js/greeting.js"></script>
+        <script src = "./js/todo.js"></script>
+        <script src = "./js/bg.js"></script>
+        <script src = "./js/weather.js"></script>
+    </body>
+
+</html>
