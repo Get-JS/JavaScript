@@ -1,0 +1,9 @@
+ES6.
+
+ES6 === ES2015
+(ES2016, ES2017....)
+
+ES2015
+개선된 JavaScript문법
+ES6 browser compatibility의 훌륭한 지원
+ES6를 기반으로 한 JavaScript 생태계의 확산
