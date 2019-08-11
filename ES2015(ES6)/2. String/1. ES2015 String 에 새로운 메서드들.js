@@ -7,4 +7,4 @@
  // 함께 끝나니?
  console.log(str.endsWith(endchstr));
  // world라는 글자가 들어가 있어?
- console/log("include test ", str.includes("world"));
+ console.log("include test ", str.includes("world"));
