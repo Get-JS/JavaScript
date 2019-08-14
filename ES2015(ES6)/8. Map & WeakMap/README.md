@@ -62,47 +62,46 @@ __But!!__
     console.log(myarea.height); // 출력이 된다... 
 ```
 
+```javascript
+    const obj = {};
+    function Area3(height ,width){
+        obj['height'] = height;
+        obj['width'] = width;
+    }
+    Area3.prototype.getArea = function() {
+        return obj.height * obj.width;
+    }
+    let myarea3 = new Area3(10, 20);
+
+    console.log(obj);
+    // garbageCollector 대상이 아니다.
+    // 계속 쌓여 나감...
+    myarea = null;
+    console.log(obj);
+```
 ### 2. 개선 방향 
 weakMap!!!
 
-```javascript
-const wm = new WeakMap();
-function Area2(height ,width){
-    // 단점은 클래스 밖에 전역변수를 보관하고 있다...
-    wm.set(this, {height, width});
-}
-Area2.prototype.getArea = function() {
-    const {height, width} = wm.get(this);
-    return height * width;
-}
-let myarea2 = new Area(10, 20);
-console.log(myarea2.getArea());
-console.log(myarea2.height); // undefined
-
-// 전역변수 -> weakMap 활용 !! 
-console.log(wm.has(myarea2));
-// out: true
-
-myarea2 = null;
-console.log(wm.has(myarea2));
-// out: false
-```
-
 __wm 장점 부각__
 ```javascript
-const obj = {};
-function Area3(height ,width){
-    obj['height'] = height;
-    obj['width'] = width;
-}
-Area3.prototype.getArea = function() {
-    return obj.height * obj.width;
-}
-let myarea3 = new Area(10, 20);
+    const wm = new WeakMap();
+    function Area2(height ,width){
+        // 단점은 클래스 밖에 전역변수를 보관하고 있다...
+        wm.set(this, {height, width});
+    }
+    Area2.prototype.getArea = function() {
+        const {height, width} = wm.get(this);
+        return height * width;
+    }
+    let myarea2 = new Area2(10, 20);
+    console.log(myarea2.getArea());
+    console.log(myarea2.height); // undefined
 
-console.log(obj);
-// garbageCollector 대상이 아니다.
-// 계속 쌓여 나감...
-myarea = null;
-console.log(obj);
+    // 전역변수 -> weakMap 활용 !! 
+    console.log(wm.has(myarea2));
+    // out: true
+
+    myarea2 = null;
+    console.log(wm.has(myarea2));
+    // out: false
 ```

@@ -1,14 +1,14 @@
 # Object
 
 ```javascript
-const name = "yjkwon07";
-const age = 26;
+    const name = "yjkwon07";
+    const age = 26;
 
-var obj = {
-    name : name,
-    age : age
-};
-console.log("obj 1 : ", obj);
+    var obj = {
+        name : name,
+        age : age
+    };
+    console.log("obj 1 : ", obj);
 ```
 
 ## 1. 새로운 Object 반환

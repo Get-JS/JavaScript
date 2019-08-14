@@ -1,7 +1,7 @@
  # Array
  ## 1. for of - 순회하기
  
-__for - in 의 문제점(Array):__
+ ###for - in 의 문제점(Array)
 
  ```javascript
     var data = [1, 2, undefined, NaN, null, ""];
@@ -31,7 +31,7 @@ Object prototype도 순회한다. __`array도 일종의 Object`__
 
 __자신이 갖고 있지 않은 상위의 값도 포함해서 결과에 출력할 수 있다.__
 
-__So!!! for - of__
+### for - of
 
 ```javascript
     var data = [1, 2, undefined, NaN, null, ""];
@@ -50,7 +50,7 @@ __`배열 뿐만 아니라 문자열도 가능하다`__
 
 문자 단위로 출력 (공백도 포함)
 
-__Object using for - in__
+### Object using for - in
 
 ```javascript
     function Ultra(name){
@@ -67,11 +67,16 @@ __Object using for - in__
     o.name = "yjkwon07"
 
     for(var ss in o) console.log(ss);
-// age
-// name
-// ultraProp
 ```
 
+출력
+```
+age
+name
+ultraProp
+```
+
+### Object using for - of
 __But, object is not iterable__
 
 ```javascript

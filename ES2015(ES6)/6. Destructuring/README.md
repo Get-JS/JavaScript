@@ -3,7 +3,7 @@
 
 필요한 배열에 특정 인덱스값이 의미가 있을 때 뽑아서 쓸 수 있다.
 ```javascript
-    let data = ["crong", "honux", "jk", "jinny"];
+    let data = ["yjkwon07", "honux", "jk", "jinny"];
 
     let jisu = data[0];
     let jung = data[2];
@@ -103,6 +103,3 @@ event객체에서 target만 가져온다.
         console.log(target.tagName);
     });
 ```
-
-
-

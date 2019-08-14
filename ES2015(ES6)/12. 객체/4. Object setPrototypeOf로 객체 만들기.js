@@ -13,7 +13,7 @@ const healthObj = {
 const myHealth = {
     name : "crong",
     lastTime : "11:20"
-});
+};
 
 console.log(myHealth , healthObj);
 
