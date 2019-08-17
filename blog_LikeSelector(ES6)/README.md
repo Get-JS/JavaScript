@@ -11,11 +11,11 @@
 ## Abstract
 ES6를 활용하여(import, spread, dstructing, set... etc) 간단한 영화 위시리스트 찜목록 추가하기를 제작하였다.
 ### main
-![main](\image\main.PNG)
+![main](https://github.com/yjkwon07/Front-End/blob/master/blog_LikeSelector(ES6)/image/main.PNG)
 ### 상단 버튼 클릭 시 json파일 불러온 후 렌더링하기
-![click](\image\click.PNG)
+![click](https://github.com/yjkwon07/Front-End/blob/master/blog_LikeSelector(ES6)/image/click.PNG)
 ### 찜하기 클릭 시 찜목록에 글 추가하기
-![image](\image\ZZim.PNG)
+![image](https://github.com/yjkwon07/Front-End/blob/master/blog_LikeSelector(ES6)/image/ZZIm.PNG)
 
 
 ## What did I do??
