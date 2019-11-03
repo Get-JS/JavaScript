@@ -12,13 +12,13 @@ const proxy = new Proxy(myObj, {
     }
 });
 myObj.name = "go";
-myObj.changeValue;
+myObj.changeValue; // out: 0
 myObj.name = "ggh";
 
 proxy.name = "code";
-proxy.changeValue;
+proxy.changeValue; // out: 1
 proxy.name = "cocoding";
-proxy.changeValue;
+proxy.changeValue; // out: 2
 
 // 값을 보호
 const proxy = new Proxy({name :"yjkwon07", changeValue : 0}, {
