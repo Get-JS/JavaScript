@@ -12,6 +12,7 @@
 ```
 
 ## 1. 새로운 Object 반환
+
 ```javascript
     function getObj() { 
         const name = "Im ck";
@@ -54,4 +55,29 @@
         },
     };
     console.log("obj3 : " ,data);
+```
+## 3. 동적 속성 할당을 리러털 안에 표현
+
+```javascript
+    var sayNode = function() {
+        console.log("Node");
+    }
+    var es = "ES";
+
+    const newObject = {
+        // function{} 
+        sayJS() {
+            console.log("JS");
+        },
+        // key , value가 같다면 하 나로!!
+        sayNode,
+        // 동적 속성 할당을 리러털 안에 표현이 가능하다.
+        // { [변수] : 값 } 
+        [es+6]: "Fatasitic",
+    };
+    newObject[es + 7] = 'Fantasitic';
+    newObject.sayNode(); // Node
+    newObject.sayJS(); // JS
+    console.log(newObject.ES6);
+    console.log(newObject.ES7);
 ```

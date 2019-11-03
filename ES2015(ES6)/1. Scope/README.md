@@ -1,21 +1,13 @@
 # Scope
-## 1. ES2015(ES6) 시작하기
+ 
+## 1. Scope Chain 
+### var
+__function단위의 scope만 존재했기 때문에__ 
 
-ES6 === ES2015
+fucntion안의 지역변수값을 먼저 찾고 그게 없다면 
 
-(ES2016, ES2017....)
+전역변수로 위로 scope chain으로 찾게 된다.
 
-ES2015
-
-개선된 JavaScript문법
-
-ES6 browser compatibility의 훌륭한 지원
-
-ES6를 기반으로 한 JavaScript 생태계의 확산
-
-## 2. let
-    
-### scope chain 
 ```javascript
     var name = "global var";
 
@@ -32,13 +24,9 @@ ES6를 기반으로 한 JavaScript 생태계의 확산
 
     })();
 ```
-__var:__
 
-__function단위의 scope만 존재했기 때문에__
-
-fucntion안의 지역변수값을 먼저 찾고 그게 없다면 
-
-전역변수로 위로 scope chain으로 찾게 된다.
+### let
+**block scope**를 갖게 된다.
 
 ```javascript
     for(let i = 0; i < 100; i++){
@@ -54,12 +42,22 @@ fucntion안의 지역변수값을 먼저 찾고 그게 없다면
     }
     console.log(myif) // -> exception
 ```
-__let:__ block scope를 갖게 된다.
-### var VS. let, const Diff~!!
-[var(function-scoped) VS. let, const(block-scoped)](https://gist.github.com/LeoHeo/7c2a2a6dbcf80becaaa1e61e90091e5d)
 
-## 3. let과 closure
-### closure scope
+### var VS. let, const 차이점~!!
+- Hoist
+- [var(function-scope) VS. let, const(block-scope)](https://gist.github.com/LeoHeo/7c2a2a6dbcf80becaaa1e61e90091e5d)
+
+## 2. Closure scope
+### var
+__callback은 나중에 실행된다.__ 
+
+callback이 가지고 있는 i 값은 callback 밖에 있는 var i를 참조 하여
+
+클로저 변수를 가지게 된다.
+
+i 값이 변경이 되다 보니... i를 참조하여 쉐어 하고 있는 상황에 
+
+i는 마지막에 4가 되어 모두 4가 나오게 된다.
 
 ```javascript
     (function closure_p() {
@@ -71,19 +69,9 @@ __let:__ block scope를 갖게 된다.
         }
     })();
 ``` 
-__var:__
-
-__callback은 나중에 실행된다.__ 
-
-callback이 가지고 있는 i 값은 callback 밖에 있는 var i를 참조 하여
-
-클로저 변수를 가지게 된다.
-
-i 값이 변경이 되다 보니... i를 참조하여 쉐어 하고 있는 상황에 
-
-i는 마지막에 4가 되어 모두 4가 나오게 된다.
 
 ### let을 사용하기 (지역변수화 시키기)
+i는 **let키워드**를 사용했기 때문에 각각의 **블록함수로써 지역변수** 값을 할당하게 된다.
 ```javascript 
     (function closure_p() {
         var list = document.querySelector("li");
@@ -94,19 +82,26 @@ i는 마지막에 4가 되어 모두 4가 나오게 된다.
         }
     })();
 ```
-i는 let키워드를 사용했기 때문에 각각의 블록함수로써 지역변수 값을 할당하게 된다.
 
-## 4. const-선언된 변수 지키기
+## 3. const
+**var로** 대문자로 약속을 하는 상황
 
+**상수 키워드로 약속 지켰지만 변경이 됨..**
 ``` javascript
     function isYourHome() {
         var HOME_NAME = "my house";
         HOME_NAME = "your house";
     }
 ```
-var로 대문자로 약속을 하는 상황
 
-상수 키워드로 약속 지켰지만 변경이 됨..
+const로 변경을 금지 시킴
+
+const를 기본으로 사용한다.
+
+__그런데 변경이 될 수 잇는 변수는 let을 사용한다.__
+
+**`var는 사용하지 않는다.(지양한다.)`**
+
 ```javascript
     function isYourHome() {
         const HOME_NAME = "my house";
@@ -120,29 +115,42 @@ var로 대문자로 약속을 하는 상황
         console.log(homename); // error
     }
 ```
-const로 변경을 금지 시킴
 
-const를 기본으로 사용한다.
 
-__그런데 변경이 될 수 잇는 변수는 let을 사용한다.__
-
-var는 사용하지 않는다.(지양한다.)
-
-## 5. const 특성과 immutable array
+## 4. const 특성과 immutable array
 ### const 특성
+추가가 됨....
+
+__const를 사용하더라도 배열과 오브젝트의 값을 변경하는 것은 가능하다.__
+
+__`절대 불변이 아니다.`__
+
+__일종의 값을(객체 참조) 재할당하는 코드만 불가능하다.(주소)__
+
 ```javascript
     function whatIsHome() {
         const list = ["apple", "orange" , "watermelon"];
         list.push("bananaa");
     }
 ```
-추가가 됨....
+**const는 메모리 주소 참조를 하고 있으므로 주소 값을 바꾸지는 못한다.**
+ 
+ const a = 0 => **리터럴 상수**
+ 
+ const a = {a:2, b:3} => **객체 참조(주소)**
+ 
+**`즉, const 키워드를 가진 객체는 주소를 못바꾸지만 가지고 있는 변수의 값을 바꿀 수는 있다.`**
+ 
+ const에 객체가 할당된 경우 객체 내부 속성은 바꿀 수 있다.
 
-__const를 사용하더라도 배열과 오브젝트의 값을 변경하는 것은 가능하다.__
-
-__절대 불변이 아니다.__
-
-__일종의 값을(객체 참조) 재할당하는 코드만 불가능하다.(주소)__
+```javascript
+    const h = [1, 2, 3, 4, 5];
+    // ok
+    h[0] = true;
+    h[1] = false; 
+    // no 
+    h = [1,2, 3, 4,];
+```
 
 ### immutable array?🤔
 

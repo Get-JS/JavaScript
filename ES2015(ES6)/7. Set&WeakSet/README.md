@@ -37,7 +37,7 @@ __set도 사실 `배열과` 유사함__
 
 ## 2. WeakSet으로 효과적으로 객체타입저장하기
 
-__`weakset :` 참조를 가지고 있는 객체만 저장이 가능하다.__
+**`weakset :`** **참조를 가지고 있는 객체만** 저장이 가능하다.
 
 객체형태를 중복없이 저장하려 할 때 유용하다.
 ```javascript
@@ -47,7 +47,7 @@ __`weakset :` 참조를 가지고 있는 객체만 저장이 가능하다.__
 
     let ws = new WeakSet();
 
-    // invalid type Error
+    // invalid type Error (Only Object)
     // primitive type Nope!~~
     // ws.add(111);
     // ws.add("111");

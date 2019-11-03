@@ -14,7 +14,7 @@ WeakMap
     let wm = new WeakMap();
     let myfun = function(){};
 
-    // 이 함수가 얼마나 실행됐지?를 알려고 할 때...?
+    // 이 함수가 얼마나 실행됐지?를 알려고 할 때...? count
     wm.set(myfun, 0);
 
     // out: function => 0 
