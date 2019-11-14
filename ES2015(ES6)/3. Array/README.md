@@ -235,9 +235,9 @@ __But arguments는 map을 못쓴다.. `배열이 아니기 때문에`__
 ```
 
 ```javascript
-    const n = (X, ...y) => console.log(x, y);
+    const n = (X, ...y) => console.log(X, y);
 
-    n(5, 6, 7, 8,  9) // (4) [5, 6, ,7, 8, 9]
+    n(5, 6, 7, 8,  9) // 5, (4) [ 6, 7, 8, 9]
 ```
 
 ```javascript
