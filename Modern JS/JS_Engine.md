@@ -38,7 +38,7 @@
 
 - Queue
   - Microtask Queue (1순위 stack 반영) (ex. then(...) func. of promise func. )
-  - Animation frames (1순위 stack 반영) (ex. UI render or repaint)
+  - Animation frames (2순위 stack 반영) (ex. UI render or repaint)
   - Task Queue (3순위 stack 반영)
 
   - Web API에서 실행 완료후 CallBack 함수를 Queue에 push 한다.
@@ -108,4 +108,5 @@
 - [MDN: JS EventLoop](https://developer.mozilla.org/ko/docs/Web/JavaScript/EventLoop)
 - [자바스크립트와 이벤트 루프](https://meetup.toast.com/posts/89)
 - [자바스크립트 개발자라면 알아야 할 33가지 개념 #1 콜스택 (번역)](https://velog.io/@jakeseo_me/2019-03-15-2303-%EC%9E%91%EC%84%B1%EB%90%A8-rmjta5a3xh)
+- [자바스크립트 개발자라면 알아야 할 33가지 개념 #11 V8 엔진이 JS를 기계 코드로 바꾸는 방법](https://velog.io/@jakeseo_me/2019-04-30-1204-%EC%9E%91%EC%84%B1%EB%90%A8-fxjv37gc4s)
 - [YouTube: What the heck is event loop? | Philip Roberts | JSConf EU](https://youtu.be/8aGhZQkoFbQ)
