@@ -1,6 +1,7 @@
 # JavaScript Start
 - [JavaScript Start](#javascript-start)
   - [Spec](#spec)
+  - [Statement vs Expressions](#statement-vs-expressions)
   - [Data type](#data-type)
     - [typeof 연산자의 반환 값](#typeof-%ec%97%b0%ec%82%b0%ec%9e%90%ec%9d%98-%eb%b0%98%ed%99%98-%ea%b0%92)
     - [산술 연산](#%ec%82%b0%ec%88%a0-%ec%97%b0%ec%82%b0)
@@ -30,6 +31,44 @@
 
 5. 클로저 지원
    - 내장 함수(Nested Function)를 지원 하여 **하나의 인스턴스화, 은닉이 가능**
+
+## Statement vs Expressions
+
+- 표현식(Expressions)
+  - 표현식은 값 하나로 귀결되는 JS 코드 조각(snippet) 이다.
+  ```js
+    2 + 2 * 3 / 2
+
+    (Math.random() * (100-20)) + 20
+
+    functionCall()
+
+    window.history ? useHistory() : noHistoryFallback()
+
+    1+1, 2+2, 3+3
+
+    declaredVariable
+
+    true && functionCall()
+
+    true && declaredVariable
+  ```
+
+- 문장(Statements)
+  - 문장은 값이 들어와야 할 곳에 들어갈 수 없다. (in JS)
+  - 함수의 인자로도, 대입 연산의 값으로도, 연산자의 피연산자로도 사용될 수 없다.
+  ```js
+    1. if
+    2. if-else
+    3. while
+    4. do-while
+    5. for
+    6. switch
+    7. for-in
+    8. with (deprecated)
+    9. debugger
+    10. variable declaration
+  ```
 
 ## Data type
 
@@ -77,14 +116,25 @@
 |함수 외의 객체|[1,2,3], new String("값"), new Number(12)|"object"|
 |함수|function(){}|"function"|
 
+- **객체의 이름까지 알고 싶을 때** `toString() 함수를` 이용하여 해당 타입을 확인할 수 있다.
+
+```js
+  function getType(target) {
+    return Object.prototype.toString.call(target).slice(8, -1);
+  }
+```
+
 ### 산술 연산
 
 - String 타입의 '+' 연산 방식을 제외하고 `대부분의 Data Type의` **'valueOf()'(우선순위 높음) 혹은 toString()으로 리턴된 값으로 연산을 한다.**
+- null은 0, undefined는 NaN으로 강제 형변환되어 연산한다.
+- `{} (block statements)` 에서 무엇이 반환되던지 **그것은 암묵적으로 0로 강제 형변환되어** `피연산자로` 사용된다.
 ```js
   null.valueOf(); // Error
   null + 1; // 1
   undefined + 1 // NaN
   NaN + "stirng" // "NaNstring"
+  {3} + 1 // 1
 ```
 
 ### ==, === 비교
@@ -104,7 +154,7 @@
     NaN == undefined // 어떠한 값과도 동일하지 않다 false
     NaN == NaN // 어떠한 값과도 동일하지 않다 false
   ```
-- '===' 비교는 타입이일치 하진 않으면, return false, 타입이 일치할 때 값을 비교를 한다. (Best Code)
+- '===' 비교는 `타입이일치 하진 않으면` **return false**, 타입이 `일치할 때` **값을 비교를 한다.** (Best Code)
 
 ## function
 
@@ -173,3 +223,5 @@
 - [자바스크립트 개발자라면 알아야 할 33가지 개념 #3 값(value) vs 참조(reference) (번역)](https://velog.io/@jakeseo_me/2019-04-01-1904-%EC%9E%91%EC%84%B1%EB%90%A8-2bjty7tuuf)
 - [자바스크립트 개발자라면 알아야 할 33가지 개념 #4 암묵적 타입 변환(implicit coercion) (번역)](https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%9D%BC%EB%A9%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-33%EA%B0%80%EC%A7%80-%EA%B0%9C%EB%85%90-4-%EC%95%94%EB%AC%B5%EC%A0%81-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98-%EB%B2%88%EC%97%AD)
 - [자바스크립트 개발자라면 알아야 할 33가지 개념 #5 == vs === 3분만에 배우기 (번역)](https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%9D%BC%EB%A9%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-33%EA%B0%80%EC%A7%80-%EA%B0%9C%EB%85%90-5-vs-3%EB%B6%84%EB%A7%8C%EC%97%90-%EB%B0%B0%EC%9A%B0%EA%B8%B0-%EB%B2%88%EC%97%AD#-%ED%91%9C%EC%8B%9C-2%EA%B0%9C%EC%9D%98-%EB%8F%99%EB%93%B1-%EB%B9%84%EA%B5%90%EC%97%B0%EC%82%B0%EC%9E%90)
+- [자바스크립트 개발자라면 알아야 할 33가지 개념 #6 함수와 블록 스코프 (번역)](https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%9D%BC%EB%A9%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-33%EA%B0%80%EC%A7%80-%EA%B0%9C%EB%85%90-6-%ED%95%A8%EC%88%98%EC%99%80-%EB%B8%94%EB%A1%9D-%EC%8A%A4%EC%BD%94%ED%94%84-%EB%B2%88%EC%97%AD-dijuhrub1x)
+- [자바스크립트 개발자라면 알아야 할 33가지 개념 #7 표현식(Expression)과 문장(Statement) (번역)](https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%9D%BC%EB%A9%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-33%EA%B0%80%EC%A7%80-%EA%B0%9C%EB%85%90-7-%ED%91%9C%ED%98%84%EC%8B%9D%EA%B3%BC-%EB%AC%B8Statement-%EB%B2%88%EC%97%AD-2xjuhvbal7#%ED%91%9C%ED%98%84%EC%8B%9D%EC%9D%80-%EA%B0%92%EC%9D%84-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%82%B8%EB%8B%A4)
