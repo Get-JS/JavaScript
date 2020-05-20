@@ -8,7 +8,9 @@
   - [[ [Prototype] ] 접근자 __ proto __ 프로퍼티](#prototype--%ec%a0%91%ea%b7%bc%ec%9e%90--proto--%ed%94%84%eb%a1%9c%ed%8d%bc%ed%8b%b0)
   - [prototype 객체 변경](#prototype-%ea%b0%9d%ec%b2%b4-%eb%b3%80%ea%b2%bd)
   - [실행 컨텍스트(Excution Context)](#%ec%8b%a4%ed%96%89-%ec%bb%a8%ed%85%8d%ec%8a%a4%ed%8a%b8excution-context)
-
+    - [실행 컨텍스트(EC) 프로퍼티](#%ec%8b%a4%ed%96%89-%ec%bb%a8%ed%85%8d%ec%8a%a4%ed%8a%b8ec-%ed%94%84%eb%a1%9c%ed%8d%bc%ed%8b%b0)
+    - [실행 컨텍스트 실행(처리) 순서](#%ec%8b%a4%ed%96%89-%ec%bb%a8%ed%85%8d%ec%8a%a4%ed%8a%b8-%ec%8b%a4%ed%96%89%ec%b2%98%eb%a6%ac-%ec%88%9c%ec%84%9c)
+    - [Ex. 실행 가능한 함수 [code]](#ex-%ec%8b%a4%ed%96%89-%ea%b0%80%eb%8a%a5%ed%95%9c-%ed%95%a8%ec%88%98-code)
 
 ## 함수의 정의
 
@@ -31,7 +33,7 @@
     function hello(x,y){return x * y; } // 함수의 정의(함수 선언)
 
     // INNER CORER
-    var hello = function hello(x,y){return x * y; } // 함수의 정의(함수 선언)
+    var hello = function hello(x,y){return x * y; } // 함수의 정의(함수 표현식 => 변수 선언)
   ```
 - 함수 표현식에서 함수이름을 정할 수도 있다. 하지만, 해당 함수 이름으로 호출 할 수 없다. **단지 디버깅시 해당 함수를 쉽게 알기 위함.**
   ```js
@@ -90,8 +92,8 @@
 - 즉, 프로토타입 객체는 다른 객체에 공유 프로퍼티를 제공하는 객체를 말한다.
 - **prototype 프로퍼티는 함수 객체만이 소유하는 프로퍼티이다.** (일반 객체에는 prototype 프로퍼티가 없다.)
   - **해당 Object, Function은 리터럴 객체로 간주한다. (리터럴)**
-  - 만약 new Object()로 할경우 Object는 생성자 함수로 구현되어있기 때문에 Object.__ proto __ === Fucntion.prototype 을 가리키게 된다.
-    - {}.__ proto __ === Object.prototype
+  - 만약 new Object()로 할경우 Object는 생성자 함수로 구현되어있기 때문에 Object.__ proto __ === Fucntion.prototype 을 가리키게 된다. ({}.__ proto __ === Object.prototype)
+
   - ![prototype](../image/function_object_prototype.png)
 
 ## prototype 객체 변경
@@ -128,7 +130,7 @@
   - **전역 코드**
   - **함수 코드**
   - eval 코드
-    - eval 코드는 lexcal Environment가 아닌 동적 환경에 실행 된다.
+    - eval 코드는 lexical Environment가 아닌 동적 환경에 실행 된다.
 
 - JS 엔진은 코드를 실행하기 위해 실행에 필요한 정보들을 알고 있어야 한다.
   - **변수** (전역변수, 지역변수, 매개변수, 객체의 프로퍼티)
@@ -136,35 +138,38 @@
   - **변수의 유효범위(Scope)**
   - **this**
 
-- 실행 컨텍스트(EC) 프로퍼티
-  - ![EC](./../image/EC.png)
-  - Variable Object(VO)
-    - value, parameter, arguments, 함수 선언
-    - `실행 컨텍스트에 따라` **가리키는 객체가 달라진다.**
-      - `Global Enviroment Context`
-        - 전역 코드 즉, 매개변수가 없는 전역코드를 평가하는 시점에서, VO는 전역객체(Global Object /GO)를 가리킨다.
-        - 초기 상태의 전역객체는 빌트인 객체와 BOM, DOM이 구현이되어 있다. (구현이 된 후 전역 실행 컨텍스트가 생성)
-        - 전역 객체는 전역에 선언된 전역 변수와 전역 함수를 프로퍼티로 소유한다.
+### 실행 컨텍스트(EC) 프로퍼티
 
-      - `Funciton Context`
-        - VO는 활성 객체(Activation Object /AO)를 가리키며 매개변수와 인수들의 정보를 배열의 형태로 담고 있는 객체인 arguments object가 추가 된다.
-  - Scope
-    - 스코프는 `식별자를 검색하는 매커니즘이다.`
-    - [Variable Object + All parent(VO)]
-      - 리스트 형식으로 현재 실행 컨텍스트의 활성 객체를 선두로 시작하여 상위 컨텍스트의 활성 객체를 가리키며 마지막으로 GO를 가리킨다.
-    - 함수 프로퍼티인 `[ [Scope] ]`로 참조한다.
-  - this
-    - context object (함수를 실행시킨 객체, 전역 코드는 window(브라우저)로 부여한다.)
+- ![EC](./../image/EC.png)
 
-- 실행 컨텍스트 실행(처리) 순서
+- Variable Object(VO)
+  - value, parameter, arguments, 함수 선언
+  - `실행 컨텍스트에 따라` **가리키는 객체가 달라진다.**
+    - `Global Enviroment Context`
+      - 전역 코드 즉, 매개변수가 없는 전역코드를 평가하는 시점에서, VO는 전역객체(Global Object /GO)를 가리킨다.
+      - 초기 상태의 전역객체는 빌트인 객체와 BOM, DOM이 구현이되어 있다. (구현이 된 후 전역 실행 컨텍스트가 생성)
+      - 전역 객체는 전역에 선언된 전역 변수와 전역 함수를 프로퍼티로 소유한다.
+
+    - `Funciton Context`
+      - VO는 활성 객체(Activation Object /AO)를 가리키며 매개변수와 인수들의 정보를 배열의 형태로 담고 있는 객체인 arguments object가 추가 된다.
+- Scope
+  - 스코프는 `식별자를 검색하는 매커니즘이다.`
+  - [Variable Object + All parent(VO)]
+    - 리스트 형식으로 현재 실행 컨텍스트의 활성 객체를 선두로 시작하여 상위 컨텍스트의 활성 객체를 가리키며 마지막으로 GO를 가리킨다.
+  - 함수 프로퍼티인 `[ [Scope] ]`로 참조한다.
+- this
+  - context object : 함수를 실행시킨 객체, 전역 코드는 window(브라우저)로 부여한다.
+
+### 실행 컨텍스트 실행(처리) 순서
+
   1. 스코프 체인의 생성과 초기화
   2. Variable Instantiation(변수 객체화) 실행
      - Variable Instantiation은 Variable Object에 프로퍼티와 값을 추가하는 것을 의미한다. 
      
      - 프로퍼티 값 설정 순서
        1. (`Function Code인 경우)` `매개변수(parameter)가` Variable Object의 프로퍼티 `name`으로, `인수(argument)가` `value`로 설정된다.
-       2. 대상 코드 내의 `함수 선언`(함수 표현식 제외)을 대상으로 `함수명이` Variable Object의 `name`으로, 생성된 `함수 객체가` `value`로 설정된다.**(함수 호이스팅)**
-       3. 대상 코드 내의 `변수 선언을` 대상으로` 변수명이` Variable Object의 `name`으로, `undefined가` `value`로 설정된다.(변수 호이스팅)
+       2. 대상 코드 내의 `함수 선언`(함수 표현식 제외)을 대상으로 `함수명이` Variable Object의 `name`으로, 생성된 `함수 객체가` `value`로 설정된다. **(함수 호이스팅)**
+       3. 대상 코드 내의 `변수 선언을` 대상으로` 변수명이` Variable Object의 `name`으로, `undefined가` `value`로 설정된다. (변수 호이스팅)
     
      - 변수(프로퍼티) 선언 처리
        1. 선언 단계(Declaration phase)
@@ -176,7 +181,8 @@
            - `undefined로` 초기화된 변수에 실제값을 할당한다.
   3. this value 결정
 
-- 실행 가능한 함수 code
+### Ex. 실행 가능한 함수 [code]
+
   ```js
     var a = 'testA';
 
@@ -193,4 +199,4 @@
     outterA();
   ```
 
-  - ![EC, GO, AO](./../image/EC_stack.png)
+![EC, GO, AO](./../image/EC_stack.png)

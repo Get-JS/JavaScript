@@ -1,25 +1,26 @@
 # JavaScript Start
 - [JavaScript Start](#javascript-start)
-  - [Spec](#spec)
-  - [Statement vs Expressions](#statement-vs-expressions)
-  - [Data type](#data-type)
-    - [typeof 연산자의 반환 값](#typeof-%ec%97%b0%ec%82%b0%ec%9e%90%ec%9d%98-%eb%b0%98%ed%99%98-%ea%b0%92)
-    - [산술 연산](#%ec%82%b0%ec%88%a0-%ec%97%b0%ec%82%b0)
-    - [==, === 비교](#%eb%b9%84%ea%b5%90)
-  - [function](#function)
-  - [object(instance)](#objectinstance)
-    - [생성자](#%ec%83%9d%ec%84%b1%ec%9e%90)
-    - [this](#this)
-  - [array](#array)
+  - [1. Spec](#1-spec)
+  - [2. Statement vs Expressions](#2-statement-vs-expressions)
+  - [3. Data type](#3-data-type)
+    - [3-1. typeof 연산자의 반환 값](#3-1-typeof-%ec%97%b0%ec%82%b0%ec%9e%90%ec%9d%98-%eb%b0%98%ed%99%98-%ea%b0%92)
+    - [3-2. 산술 연산](#3-2-%ec%82%b0%ec%88%a0-%ec%97%b0%ec%82%b0)
+    - [3-3. ==, === 비교](#3-3---%eb%b9%84%ea%b5%90)
+  - [4. function](#4-function)
+  - [5. object(instance)](#5-objectinstance)
+    - [5-1. 생성자](#5-1-%ec%83%9d%ec%84%b1%ec%9e%90)
+    - [5-2. this](#5-2-this)
+  - [6. array](#6-array)
   - [Reference](#reference)
 
-## Spec
+## 1. Spec
 
 1. 인터프리터 언어
    - **JIT 컴파일러가** 내장되어 실행속도가 빨라짐
   
 2. 동적 프로토타입 기반 객체 지향 언어
-   - JAVA, C++ 에서, 프로그램 실행 중 클래스를 인스턴스화 하여 나온 객체들은 메서드 혹은 멤버변수를 수정할 수 없지만, **JS에서는 프로토 타입 상속으로 인해 변경 할 수 있다.**
+   - JAVA, C++ 에서, 프로그램 실행 중 클래스를 인스턴스화 하여 나온 객체들은 메서드 혹은 멤버변수를 수정할 수 없지만,
+   - **JS에서는 프로토 타입 상속으로 인해 변경 할 수 있다.**
 
 3. 동적 타입 언어
    - **특정 변수 타입이 없다.**
@@ -32,7 +33,7 @@
 5. 클로저 지원
    - 내장 함수(Nested Function)를 지원 하여 **하나의 인스턴스화, 은닉이 가능**
 
-## Statement vs Expressions
+## 2. Statement vs Expressions
 
 - 표현식(Expressions)
   - 표현식은 값 하나로 귀결되는 JS 코드 조각(snippet) 이다.
@@ -70,10 +71,10 @@
     10. variable declaration
   ```
 
-## Data type
+## 3. Data type
 
 - 원시타입 **(Primitive Type)**: 자바스크립트에서 객체가 **(Reference Type)** 아닌 것들이며 값 그 자체로 저장된다.
-  - String, Number, Boolean 같은 경우 객체가 존재 하지만, 원시타입의 리터럴로 정의하여 프로퍼티를 사용할경우 **Wrapper Object**로 자동 변환 되어 프로퍼티를 리턴한다. (Auto Boxing) 
+  - String, Number, Boolean 같은 경우 객체가 존재 하지만, 원시타입의 리터럴로 정의하여 프로퍼티를 사용할경우 **Wrapper Object**로 자동 변환 되어 프로퍼티를 리턴한다. **(Auto Boxing)**
     ```js
       1.toString(); // "1" 
       new Number(1).toString(); // Wrapper Object 리턴후 property 값 리턴 내부에서 이루어진 평가이기 때문에 GC로 없어짐
@@ -86,24 +87,18 @@
   - 하지만, `new 연산자로` 객체를 만들경우 Reference Type Objcet로 리턴되어 나와 **Primitive Type을 잃게 된다.**
     - (원시 값을 갖고 싶으면, new String("값").valueOf() 사용 해야한다.)
 
-1. Boolean
+- Boolean
+- Null
+  - 산술 연산자에서는 '0'으로 평가
+- Undefined
+  - 산술 연산자에서는 'NaN'으로 평가
+- Number (IEEE754로 규정된 64-bit 부동소수점,  자바스크립트에는 정수 타입은 존재하지 않다.)
+  - 부호(1 bit), 지수(11 bit), 가수(52 bit)
+- String
+  - '+' 연산 외 '*,/,%...' 연산자는 String 타입을 Number(String 타입)으로 연산을 하게된다.
+- Symbol (ECMAScript 6에 추가됨)
 
-2. Null
-   - 산술 연산자에서는 '0'으로 평가
-
-3. Undefined
-   - 산술 연산자에서는 'NaN'으로 평가
-
-4. Number (IEEE754로 규정된 64-bit 부동소수점,  자바스크립트에는 정수 타입은 존재하지 않다.)
-   - 부호(1 bit), 지수(11 bit), 가수(52 bit)
-
-5. String
-  - 산술 연산자에서 '+' 연산 시 String 제외한 객체들(Primitve 포함)을 `'toString()'`, 혹은 `'valueOf()'(우선순위 높음)` 으로 반환된 값이랑 연산된다.
-  - 그외 '*,/,%...' 연산자는 String 타입을 Number(String 타입)으로 연산을 하게된다.
-
-6. Symbol (ECMAScript 6에 추가됨)
-
-### typeof 연산자의 반환 값
+### 3-1. typeof 연산자의 반환 값
 
 | data   | ex     | return | 
 |:-------|:-------|:-------|
@@ -117,27 +112,26 @@
 |함수|function(){}|"function"|
 
 - **객체의 이름까지 알고 싶을 때** `toString() 함수를` 이용하여 해당 타입을 확인할 수 있다.
+  ```js
+    function getType(target) {
+      return Object.prototype.toString.call(target).slice(8, -1);
+    }
+  ```
 
-```js
-  function getType(target) {
-    return Object.prototype.toString.call(target).slice(8, -1);
-  }
-```
-
-### 산술 연산
+### 3-2. 산술 연산
 
 - String 타입의 '+' 연산 방식을 제외하고 `대부분의 Data Type의` **'valueOf()'(우선순위 높음) 혹은 toString()으로 리턴된 값으로 연산을 한다.**
 - null은 0, undefined는 NaN으로 강제 형변환되어 연산한다.
 - `{} (block statements)` 에서 무엇이 반환되던지 **그것은 암묵적으로 0로 강제 형변환되어** `피연산자로` 사용된다.
-```js
-  null.valueOf(); // Error
-  null + 1; // 1
-  undefined + 1 // NaN
-  NaN + "stirng" // "NaNstring"
-  {3} + 1 // 1
-```
+  ```js
+    null.valueOf(); // Error
+    null + 1; // 1
+    undefined + 1 // NaN
+    NaN + "stirng" // "NaNstring"
+    {3} + 1 // 1
+  ```
 
-### ==, === 비교
+### 3-3. ==, === 비교
 
 - '==' 비교는 타입이 일치 하지 않을 때, 강제 타입으로 변환시켜 비교하게 된다.
   ```js
@@ -156,7 +150,7 @@
   ```
 - '===' 비교는 `타입이일치 하진 않으면` **return false**, 타입이 `일치할 때` **값을 비교를 한다.** (Best Code)
 
-## function
+## 4. function
 
 - parameter(인자)
   - 유효범위는 지역함수 이며, 프로그램 실행하면서 필요한 변수 값
@@ -175,7 +169,7 @@
 - **JS에서는 함수가 객체이다.** 
   - 함수 선언문으로 함수를 선언하면 내부적으로는 그 함수 이름을 변수 이름으로 한 변수와 **함수 객체가 만들어지고,**  함수 객체의 참조가 저장 된다.
 
-## object(instance)
+## 5. object(instance)
 
 - **연관배열(associative array)** 또는 **맵(map),** **딕셔너리(Dictionary)** 라는 데이터 타입이 객체에 해당한다.
 - key, value 쌍으로 구성되어 있으며, key를 `해당하는(this)` 객체의 프로퍼티로 명한다.
@@ -194,7 +188,7 @@
     객체 생성자['propertyName(Method)'] = function(){ console.log(this.propertyName) };
 ```
 
-### 생성자
+### 5-1. 생성자
 
 - 앞에 예제 처럼 `new 연산자로` 객체를 생성시킨 함수를 생성자라고 한다.
 - 인스턴스는 **실체라는** 뜻이 있다. 
@@ -204,12 +198,12 @@
   - 그래서, 생성자로 생성한 객체는 엄밀히 말해 인스턴스가 아니다.
     - 하지만, 생성자가 클래스처럼 객체를 생성하는 역할을 담당하고 있어 **생성자로 생성한 객체도 인스턴스라고 부르는것이 관례이다.**
 
-### this
+### 5-2. this
 
 - 함수가 속해있는 객체를 가리키는 변수이다.
 - 함수를 어떻게 생성하냐에 따라서 달라질 수 있지만, 맥락에서는 function을 가지고있는 **객체 생성자(value Name), 객체 리터럴(value Name)** 를 말한다.
 
-## array
+## 6. array
 
 - 앞서 말한(Data type)에서도 원시 타입 이외는 모두 객체 참조이므로 array도 Array객체로 만들어진 **객체** 이다.
 - 즉, 배열 넘버링(index)이 key값으로 저장된것이다.
