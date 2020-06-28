@@ -1,16 +1,16 @@
 # JS Function
 
 - [JS Function](#js-function)
-  - [함수의 정의](#%ed%95%a8%ec%88%98%ec%9d%98-%ec%a0%95%ec%9d%98)
-  - [함수 선언 vs 함수 표현식](#%ed%95%a8%ec%88%98-%ec%84%a0%ec%96%b8-vs-%ed%95%a8%ec%88%98-%ed%91%9c%ed%98%84%ec%8b%9d)
-    - [호이스팅](#%ed%98%b8%ec%9d%b4%ec%8a%a4%ed%8c%85)
-  - [Function 인자 가변 길이 인수(Arguments 객체)](#function-%ec%9d%b8%ec%9e%90-%ea%b0%80%eb%b3%80-%ea%b8%b8%ec%9d%b4-%ec%9d%b8%ec%88%98arguments-%ea%b0%9d%ec%b2%b4)
-  - [[ [Prototype] ] 접근자 __ proto __ 프로퍼티](#prototype--%ec%a0%91%ea%b7%bc%ec%9e%90--proto--%ed%94%84%eb%a1%9c%ed%8d%bc%ed%8b%b0)
-  - [prototype 객체 변경](#prototype-%ea%b0%9d%ec%b2%b4-%eb%b3%80%ea%b2%bd)
-  - [실행 컨텍스트(Excution Context)](#%ec%8b%a4%ed%96%89-%ec%bb%a8%ed%85%8d%ec%8a%a4%ed%8a%b8excution-context)
-    - [실행 컨텍스트(EC) 프로퍼티](#%ec%8b%a4%ed%96%89-%ec%bb%a8%ed%85%8d%ec%8a%a4%ed%8a%b8ec-%ed%94%84%eb%a1%9c%ed%8d%bc%ed%8b%b0)
-    - [실행 컨텍스트 실행(처리) 순서](#%ec%8b%a4%ed%96%89-%ec%bb%a8%ed%85%8d%ec%8a%a4%ed%8a%b8-%ec%8b%a4%ed%96%89%ec%b2%98%eb%a6%ac-%ec%88%9c%ec%84%9c)
-    - [Ex. 실행 가능한 함수 [code]](#ex-%ec%8b%a4%ed%96%89-%ea%b0%80%eb%8a%a5%ed%95%9c-%ed%95%a8%ec%88%98-code)
+  - [함수의 정의](#함수의-정의)
+  - [함수 선언 vs 함수 표현식](#함수-선언-vs-함수-표현식)
+    - [호이스팅](#호이스팅)
+  - [Function 인자 가변 길이 인수(Arguments 객체)](#function-인자-가변-길이-인수arguments-객체)
+  - [[ [Prototype] ] 접근자 __ proto __ 프로퍼티](#-prototype--접근자-__-proto-__-프로퍼티)
+  - [prototype 객체 변경](#prototype-객체-변경)
+  - [실행 컨텍스트(Excution Context)](#실행-컨텍스트excution-context)
+    - [실행 컨텍스트(EC) 프로퍼티](#실행-컨텍스트ec-프로퍼티)
+    - [실행 컨텍스트 실행(처리) 순서](#실행-컨텍스트-실행처리-순서)
+    - [Ex. 실행 가능한 함수 [code]](#ex-실행-가능한-함수-code)
 
 ## 함수의 정의
 

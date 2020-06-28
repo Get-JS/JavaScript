@@ -1,14 +1,15 @@
 # JavaScript Start
 - [JavaScript Start](#javascript-start)
   - [1. Spec](#1-spec)
-  - [2. Statement vs Expressions](#2-statement-vs-expressions)
+  - [2. Expressions vs Statement](#2-expressions-vs-statement)
   - [3. Data type](#3-data-type)
-    - [3-1. typeof 연산자의 반환 값](#3-1-typeof-%ec%97%b0%ec%82%b0%ec%9e%90%ec%9d%98-%eb%b0%98%ed%99%98-%ea%b0%92)
-    - [3-2. 산술 연산](#3-2-%ec%82%b0%ec%88%a0-%ec%97%b0%ec%82%b0)
-    - [3-3. ==, === 비교](#3-3---%eb%b9%84%ea%b5%90)
+    - [3-1. typeof 연산자의 반환 값](#3-1-typeof-연산자의-반환-값)
+    - [3-2. 산술 연산](#3-2-산술-연산)
+    - [3-3. {} block statements VS object literal](#3-3--block-statements-vs-object-literal)
+    - [3-4. ==, === 비교](#3-4---비교)
   - [4. function](#4-function)
   - [5. object(instance)](#5-objectinstance)
-    - [5-1. 생성자](#5-1-%ec%83%9d%ec%84%b1%ec%9e%90)
+    - [5-1. 생성자](#5-1-생성자)
     - [5-2. this](#5-2-this)
   - [6. array](#6-array)
   - [Reference](#reference)
@@ -33,7 +34,7 @@
 5. 클로저 지원
    - 내장 함수(Nested Function)를 지원 하여 **하나의 인스턴스화, 은닉이 가능**
 
-## 2. Statement vs Expressions
+## 2. Expressions vs Statement
 
 - 표현식(Expressions)
   - 표현식은 값 하나로 귀결되는 JS 코드 조각(snippet) 이다.
@@ -74,6 +75,7 @@
 ## 3. Data type
 
 - 원시타입 **(Primitive Type)**: 자바스크립트에서 객체가 **(Reference Type)** 아닌 것들이며 값 그 자체로 저장된다.
+  - `Primitive types are immutable` 
   - String, Number, Boolean 같은 경우 객체가 존재 하지만, 원시타입의 리터럴로 정의하여 프로퍼티를 사용할경우 **Wrapper Object**로 자동 변환 되어 프로퍼티를 리턴한다. **(Auto Boxing)**
     ```js
       1.toString(); // "1" 
@@ -86,7 +88,6 @@
     ```
   - 하지만, `new 연산자로` 객체를 만들경우 Reference Type Objcet로 리턴되어 나와 **Primitive Type을 잃게 된다.**
     - (원시 값을 갖고 싶으면, new String("값").valueOf() 사용 해야한다.)
-
 - Boolean
 - Null
   - 산술 연산자에서는 '0'으로 평가
@@ -123,6 +124,7 @@
 - String 타입의 '+' 연산 방식을 제외하고 `대부분의 Data Type의` **'valueOf()'(우선순위 높음) 혹은 toString()으로 리턴된 값으로 연산을 한다.**
 - null은 0, undefined는 NaN으로 강제 형변환되어 연산한다.
 - `{} (block statements)` 에서 무엇이 반환되던지 **그것은 암묵적으로 0로 강제 형변환되어** `피연산자로` 사용된다.
+
   ```js
     null.valueOf(); // Error
     null + 1; // 1
@@ -131,7 +133,17 @@
     {3} + 1 // 1
   ```
 
-### 3-3. ==, === 비교
+### 3-3. {} block statements VS object literal
+
+- 블록 문장을 값이나 표현식으로 사용할 수는 없다. 
+- console.log는 문장(statement)을 인자로 받아들일 수 없다. 
+- 하지만, 오브젝트 리터럴은 인자로 받아들일 수 있다. 
+- 문장(statements)은 어느것도 반환하도록 되어있지 않다.(값으로 리턴될 수 없기 때문)
+- 그래서 자바스크립트는 error을 내보내지 않는 대신에 `+ 연산자의 피연산자를` **숫자나 문자열로 바꾼다.** 
+  - 만일 바꿀 수 없는 값이라면 에러를 리턴한다 
+- `블록 문장(block statements)`에서 무엇이 반환되던지 그것은 암묵적으로 **0로 강제 형변환되어 피연산자로 사용된다.**
+
+### 3-4. ==, === 비교
 
 - '==' 비교는 타입이 일치 하지 않을 때, 강제 타입으로 변환시켜 비교하게 된다.
   ```js
@@ -144,13 +156,18 @@
     null == 0 // => false
     undefined == 0 // => false
 
-    NaN == null // 어떠한 값과도 동일하지 않다 false
-    NaN == undefined // 어떠한 값과도 동일하지 않다 false
-    NaN == NaN // 어떠한 값과도 동일하지 않다 false
+    NaN == null // 어떠한 값과도 동일하지 않다 false (Warning)
+    NaN == undefined // 어떠한 값과도 동일하지 않다 false (Warning)
+    NaN == NaN // 어떠한 값과도 동일하지 않다 false (Warning)
   ```
 - '===' 비교는 `타입이일치 하진 않으면` **return false**, 타입이 `일치할 때` **값을 비교를 한다.** (Best Code)
 
 ## 4. function
+
+```js
+ function name(인자) {}
+ name(인수)
+```
 
 - parameter(인자)
   - 유효범위는 지역함수 이며, 프로그램 실행하면서 필요한 변수 값

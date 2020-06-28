@@ -1,0 +1,1 @@
+- [자바스크립트 개발자라면 알아야 할 33가지 개념 #15 자바스크립트 : this, call(), apply(), bind()](https://velog.io/@jakeseo_me/2019-05-07-1605-%EC%9E%91%EC%84%B1%EB%90%A8-qpjvdgllm8)
