@@ -9,10 +9,11 @@
 
 - [JS Start](./Modern%20JS/JS_start.md)
   - Spec
-  - Statement vs Expressions
+  - Expressions vs Statement
   - Data Type
     - typeof 연산자의 반환 값
     - 산술 연산
+    - {} block statements VS object literal
     - ==, === 비교
   - function
   - object(instance)
@@ -32,7 +33,7 @@
     - [실행 컨텍스트 실행(처리) 순서]
     - [Ex. 실행 가능한 함수 [code]]
 
-- [Js Object]()
+- [Js Object](./Modern%20JS/JS_Object.md)
 
 **[위로](#javascript)**
 

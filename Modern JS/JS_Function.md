@@ -78,8 +78,8 @@
 - Argumetns 객체는 인수 목록과 연동되어 **arguments 값을 바꾸면 인수도 바뀐다.**
     ```js
       (function(x,y){
-          arguments[0] = 55;
-          console.log(x, y); // 55, 2
+        arguments[0] = 55;
+        console.log(x, y); // 55, 2
       })(2,2);
     ```
 
@@ -91,9 +91,8 @@
   - 내부 슬롯을 직접 접근을 못하므로 **`__ proto __ 접근자 프로퍼티로` 접근을 한다.**
 - 즉, 프로토타입 객체는 다른 객체에 공유 프로퍼티를 제공하는 객체를 말한다.
 - **prototype 프로퍼티는 함수 객체만이 소유하는 프로퍼티이다.** (일반 객체에는 prototype 프로퍼티가 없다.)
-  - **해당 Object, Function은 리터럴 객체로 간주한다. (리터럴)**
-  - 만약 new Object()로 할경우 Object는 생성자 함수로 구현되어있기 때문에 Object.__ proto __ === Fucntion.prototype 을 가리키게 된다. ({}.__ proto __ === Object.prototype)
-
+  - 만약 new Object()로 할경우 Object는 생성자 함수로 구현되어있기 때문에 Object.__ proto __ === Fucntion.prototype 을 가리키게 된다. 
+  - Object로 생성된 인스턴스는 Object.prototype을 가리키게 된다.({}.__ proto __ === Object.prototype)
   - ![prototype](../image/function_object_prototype.png)
 
 ## prototype 객체 변경
@@ -183,20 +182,20 @@
 
 ### Ex. 실행 가능한 함수 [code]
 
-  ```js
-    var a = 'testA';
+```js
+  var a = 'testA';
 
-    function outterA() {
-      var b = 'testB';
+  function outterA() {
+    var b = 'testB';
 
-      function nestedB() {
-        var c = 'testC';
-        console.log(a,b,c);
-      }
-      nestedB();
+    function nestedB() {
+      var c = 'testC';
+      console.log(a,b,c);
     }
-    
-    outterA();
-  ```
+    nestedB();
+  }
+  
+  outterA();
+```
 
 ![EC, GO, AO](./../image/EC_stack.png)
