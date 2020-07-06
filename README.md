@@ -34,6 +34,15 @@
     - [Ex. 실행 가능한 함수 [code]]
 
 - [Js Object](./Modern%20JS/JS_Object.md)
+  - new 연산자 역할
+  - 프로퍼티의 속성
+  - 유용한 Object 메소드
+  - class vs function (new)
+  - this of function(method)?
+    - function 생성자
+    - class 생성자
+    - {} 리턴
+  - allow function
 
 **[위로](#javascript)**
 
