@@ -2,44 +2,48 @@
 
 - [JS Object](#js-object)
   - [new 연산자 역할](#new-연산자-역할)
-  - [프로퍼티의 속성](#프로퍼티의-속성)
+    - [new 생성자 keyword로 함수를 호출시 흐름](#new-생성자-keyword로-함수를-호출시-흐름)
+  - [프로퍼티의 속성 및 디스크립터 설정 메서드](#프로퍼티의-속성-및-디스크립터-설정-메서드)
   - [유용한 Object 메소드](#유용한-object-메소드)
   - [class vs function (new)](#class-vs-function-new)
-  - [this of function(method)?](#this-of-functionmethod)
+  - [who is this of function(method)?](#who-is-this-of-functionmethod)
     - [function 생성자](#function-생성자)
     - [class 생성자](#class-생성자)
-    - [{} 리턴](#-리턴)
+    - [{} 리턴 new vs don't use new keyword](#-리턴-new-vs-dont-use-new-keyword)
   - [allow function](#allow-function)
 
 ## new 연산자 역할
 
 ```js
+  // 생성자 함수
   function Circle(center, radius) {
+    // 생성자 필드 (this is newObject what is binded)
     this.center = center;
     this.radius = radius;
   }
+  // prototype 공간에 추가
   Circle.prototype.area = function() {
     return Math.PI*this.radius*this.radius;
   }
+
+  var circle = new Circle({x:0,y:0},2.0);
 ```
 
-- new 생성자 keyword로 함수를 호출시 흐름
+### new 생성자 keyword로 함수를 호출시 흐름
 
 ```js
-  var circle = new Circle({x:0,y:0},2.0);
-
-  var newObj = {};
-  newObj.__proto__ = Cicle.prototype;
-  Circle.apply(newObj, arguments);
-  return new Obj;
+  var newObj = {}; // 새로운 빈 객체 주소 참조
+  newObj.__proto__ = Cicle.prototype; // prototype 공간 주소 참조
+  Circle.apply(newObj, arguments); // this bind하여 arguments 정보들로 함수 실행 this bind로 인해, 생성자 필드 정보 부여가 됨
+  return new Obj; // 만들어진 객체 리턴
 ```
 
-## 프로퍼티의 속성
+## 프로퍼티의 속성 및 디스크립터 설정 메서드
 
 ```
-  writable
-  enumerable
-  configurable
+  writable (쓰기 가능)
+  enumerable (나열 가능)
+  configurable (재정의)
 ```
 
 - 데이터 프로퍼티
@@ -49,8 +53,8 @@
   - configurable 
 
 - 접근자 프로퍼티
-  - get
-  - set
+  - `get`
+  - `set`
   - enumerable
   - configurable
 
@@ -58,18 +62,18 @@
   Object.getOwnPropertyDescriptor(obj, propertyName) // 디스크립터 (상속 관계 프로퍼티는 undefined)
   Object.defineProperty(obj, propertyName, descriptor) // 프로퍼티 디스크립터 설정
   Object.defineProperties(obj, descriptor) // 여러 개 프로퍼티 디스크립터 설정
-  Object.create(obj, descriptor) // 첫 번 째 해당 인수로 상속을 받는다, 두 번 째 인수에서는 프로퍼티 디스크립터를 작성하여 자신의 프로퍼티로 갖게 된다.
+  Object.create(obj, descriptor) // 첫 번 째 인수로 상속을 받는다, 두 번 째 인수에서는 프로퍼티 디스크립터를 작성하여 자신의 프로퍼티로 갖게 된다.
 ```
 
 ## 유용한 Object 메소드
 
 ```js
-  Object.keys // method returns an array of a given object's own enumerable property 
-  Object.getOwnProperyNames // method returns an array of all properties (including non-enumerable properties except for those which use Symbol) 
+  Object.keys() // method returns an array of a given object's own enumerable property 
+  Object.getOwnProperyNames() // method returns an array of all properties (including non-enumerable properties except for those which use Symbol) 
 
-  Object.preventExtensions // 추가 [불가]
-  Object.seal // 추가,삭제, 재정의(configuable) [불가]
-  Object.freeze // 재정의,추가,삭제,수정 [불가]
+  Object.preventExtensions() // 추가 [불가]
+  Object.seal() // 추가,삭제, 재정의(configuable) [불가]
+  Object.freeze() // 재정의,추가,삭제,수정 [불가]
 ```
 
 ## class vs function (new)
@@ -81,8 +85,30 @@
   - Species
   - super 를 통한 상위 클래스 호출
   - Mix-ins
+- [javascript info](https://ko.javascript.info/class)
+  - **`클래스 필드`**
+  ```js
+  class MyClass {
+    prop = value; // 프로퍼티
 
-## this of function(method)?
+    constructor(...) { // 생성자 메서드
+      // ...
+    }
+
+    method(...) {} // 메서드
+
+    get something(...) {} // getter 메서드
+    set something(...) {} // setter 메서드
+
+    [Symbol.iterator]() {} // 계산된 이름(computed name)을 사용해 만드는 메서드 (심볼)
+    // ...
+  }
+  ```
+- [javascript info](https://ko.javascript.info/class-inheritance#ref-69)
+  - **`super 키워드와 [[HomeObject]]`**
+
+
+## who is this of function(method)?
 
 ### function 생성자
 
@@ -135,13 +161,14 @@
 ```
 
 - method get method of refernceType
+  - 객체 메서드를 여기저기 전달해 전혀 다른 컨텍스트에서 호출하게 되면 this는 원래 객체를 참조하지 않습니다.
 
 ```js
   var who = a.who()
   who() // undefined => class is use stric mode
 ```
 
-### {} 리턴
+### {} 리턴 new vs don't use new keyword
 
 ```js
   function A(params) {
@@ -149,7 +176,7 @@
     function what() {
       return this.name;
     }
-    function who(){
+    function who() {
       return this;
     }
     return {
@@ -161,17 +188,20 @@
 
 - [new 연산자 역할 참고](#new-연산자-역할)
 - return newObj 하기전 apply에서 이미 `{} 리터럴` 리턴 됨
+- 객체를 return 한다면, this 대신 객체가 반환
+- 원시형을 return 한다면, return문이 무시
 
 ```js
-  var a = new A({name:"yjkwon07"});
+  var a = new A({name:"yjkwon07"}); // new obj
   a.what() // undefined
   a.who() // { what, who }
+  window.name // undefined
 ```
 
 - new 생성자 키워드를 사용하지 않았기 때문에 window 전역 객체에 name 프로퍼티가 생성된다.
 
 ```js
-  var a = A({name:"yjkwon07"});
+  var a = A({name:"yjkwon07"}); // new obj
   a.what() // undefined
   a.who() // { what, who }
   window.name // "yjkwon07"

@@ -83,3 +83,4 @@
 - [JavaScropt 33가지 개념](https://velog.io/@jakeseo_me/series/33conceptsofjavascript)
 - [Poiemaweb](https://poiemaweb.com/)
 - [Frontend Developers](https://github.com/FEDevelopers)
+- [JavaScropt Info](https://ko.javascript.info)
