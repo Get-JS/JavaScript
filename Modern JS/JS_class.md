@@ -3,7 +3,7 @@
 - [JS_class](#js_class)
   - [class](#class)
   - [상속](#상속)
-  - [super 키워드와 \[[HomeObject]]](#super-키워드와-homeobject)
+  - [super 키워드와 \[[HomeObject]\]](#super-키워드와-homeobject)
   - [instanceof](#instanceof)
   - [Reference](#reference)
 
@@ -73,7 +73,7 @@ class MyClass {
   - (B.[[Prototype]] = A). 따라서 B에서 원하는 프로퍼티나 메서드를 찾지 못하면 A로 검색이 이어진다.
   - `class` 키워드에서만 이루어지고 `일반 함수의` 생성자 프로토타입 상속은 일반 함수 prototype의 상속관계만 이루어진다. 함수의 생성자의 \_\_proto\_\_은 Function 프로토타입을 가리킨다.
 
-## super 키워드와 \[[HomeObject]]
+## super 키워드와 \[[HomeObject]\]
 
 - 클래스이거나 객체 메서드인 함수의 \[[HomeObject]] 프로퍼티는 해당 객체가 저장된다.
 - `super는` \[[HomeObject]]를 이용해 부모 프로토타입과 메서드를 찾는다.
@@ -109,4 +109,5 @@ alert(rabbit instanceof Animal); // true
 - [정적 메서드와 정적 프로퍼티](https://ko.javascript.info/static-properties-methods)
 - [private, protected 프로퍼티와 메서드](https://ko.javascript.info/private-protected-properties-methods)
 - [내장 클래스 확장하기](https://ko.javascript.info/extend-natives)
+- ['instanceof'로 클래스 확인하기](https://ko.javascript.info/instanceof)
 - [믹스인](https://ko.javascript.info/mixins)
