@@ -3,6 +3,7 @@
 - [JavaScript Start](#javascript-start)
   - [1. Spec](#1-spec)
   - [2. Expressions vs Statement](#2-expressions-vs-statement)
+    - [2-1. literal](#2-1-literal)
   - [3. Data type](#3-data-type)
     - [3-1. typeof 연산자의 반환 값](#3-1-typeof-연산자의-반환-값)
     - [3-2. 산술 연산](#3-2-산술-연산)
@@ -23,8 +24,8 @@
 
 2. 동적 프로토타입 기반 객체 지향 언어
 
-   - JAVA, C++ 에서, 프로그램 실행 중 클래스를 인스턴스화 하여 나온 객체들은 메서드 혹은 멤버변수를 수정할 수 없지만,
-   - **JS에서는 프로토 타입 상속으로 인해 변경 할 수 있다.**
+   - JAVA, C++ 에서, 프로그램 실행 중 클래스를 인스턴스화 하여 나온 객체들은 메서드 혹은 상속을 수정할 수 없지만,
+   - JS에서는 `Descriptor에` 따라 `동적으로` 프로토타입, 프로퍼티와 메서드를 **추가, 변경, 삭제 모두 할 수 있다.**
 
 3. 동적 타입 언어
 
@@ -62,6 +63,8 @@
   ```
 
 - 문장(Statements)
+  - 단어가 저절히 조합된 한 문장으로 `의사를` 표현한다.
+  - 문장 여러 개를 `{}`로 감싼 코드를 복합문 또는 블록문이라고 한다.
   - 문장은 값이 들어와야 할 곳에 들어갈 수 없다. (in JS)
   - 함수의 인자로도, 대입 연산의 값으로도, 연산자의 피연산자로도 사용될 수 없다.
   ```js
@@ -76,6 +79,16 @@
     9. debugger
     10. variable declaration
   ```
+
+### 2-1. literal
+
+- 프로그램에서 직접 작성할 수 있는 상수 값은 `리터럴이라고` 한다.
+  - 정수 리터럴 => 123, 0x2a, 0o73, 0b101
+  - 부동소수점 리터럴 => 3.14, 6.02e23
+  - 문자열 리터럴 => "문자열 리터럴"
+  - 템플릿 리터럴 => \`${변수} aa\`
+  - 객체 리터럴 => { propertyName : 1 }
+  - 함수 리터럴 => var a = function(x) { return x };
 
 ## 3. Data type
 
@@ -106,16 +119,16 @@
 
 ### 3-1. typeof 연산자의 반환 값
 
-| data             | ex                                        | return      |
-| :--------------- | :---------------------------------------- | :---------- |
-| 숫자, NaN        | 12,NaN, Number(12)                        | "number"    |
-| 문자열           | "값", String("값")                        | "string"    |
-| 논리값           | true, false                               | "boolean"   |
-| 정의되지 않은 값 | undefined                                 | "undefined" |
-| null 값          | null                                      | "object"    |
-| 심벌             | Symbol("값")                              | "symbol"    |
-| 함수 외의 객체   | [1,2,3], new String("값"), new Number(12) | "object"    |
-| 함수             | function(){}                              | "function"  |
+- | data             | ex                                        | return      |
+  | :--------------- | :---------------------------------------- | :---------- |
+  | 숫자, NaN        | 12,NaN, Number(12)                        | "number"    |
+  | 문자열           | "값", String("값")                        | "string"    |
+  | 논리값           | true, false                               | "boolean"   |
+  | 정의되지 않은 값 | undefined                                 | "undefined" |
+  | null 값          | null                                      | "object"    |
+  | 심벌             | Symbol("값")                              | "symbol"    |
+  | 함수 외의 객체   | [1,2,3], new String("값"), new Number(12) | "object"    |
+  | 함수             | function(){}                              | "function"  |
 
 - **객체의 이름까지 알고 싶을 때** `toString() 함수를` 이용하여 해당 타입을 확인할 수 있다.
   ```js
@@ -139,6 +152,8 @@
     3;
   }
   +1; // 1
+  {} + 1 // 1
+  1 + 1{} // 1[object Object]
   ```
 
 ### 3-3. {} block statements VS object literal
@@ -149,7 +164,8 @@
 - 문장(statements)은 어느것도 반환하도록 되어있지 않다.(값으로 리턴될 수 없기 때문)
 - 그래서 자바스크립트는 error을 내보내지 않는 대신에 `+ 연산자의 피연산자를` **숫자나 문자열로 바꾼다.**
   - 만일 바꿀 수 없는 값이라면 에러를 리턴한다
-- `블록 문장(block statements)`에서 무엇이 반환되던지 그것은 암묵적으로 **0로 강제 형변환되어 피연산자로 사용된다.**
+    > `블록 문장(block statements)`에서 무엇이 반환되던지 그것은 암묵적으로 **0로 강제 형변환되어 피연산자로 사용된다.**
+  - 여기서 생각은 문장이 끝났으므로 0이아닌 문장이 끝난걸로 인식하고 그다음 표현식을 실행했다고 생각이 든다.
 
 ### 3-4. ==, === 비교
 
@@ -175,8 +191,8 @@
 ## 4. function
 
 ```js
-function name(인자) {}
-name(인수);
+function name(parameter(인자)) {}
+name(arguments(인수));
 ```
 
 - parameter(인자)
@@ -189,13 +205,16 @@ name(인수);
   - 해당하는 인자값을 모두 `undefined`로 정의 됨(lexcal Scope)
 
 - 지역 변수
+
   - 함수내의 변수를 선언 할 수 있으며 안에서 식별자(var, const, let)로 선언한 변수들은 모두 지역 변수로 들어간다.
   - 함수 안에 함수를 실행할 수 있다.(Nested Function)
+
 - return
 
   - return이 없을 경우 undefined를 리턴 한다.
 
 - **JS에서는 함수가 객체이다.**
+
   - 함수 선언문으로 함수를 선언하면 내부적으로는 그 함수 이름을 변수 이름으로 한 변수와 **함수 객체가 만들어지고,** 함수 객체의 참조가 저장 된다.
 
 ## 5. object(instance)
@@ -205,16 +224,16 @@ name(인수);
 - 생성된 객체는 메모리(RAM-Heap)에 정의되며 해당하는 **주소값(Reference Type)을 저장하는 구조이다.**
 
 ```javascript
-    const 객체 리터럴 = {'propertyName': 10, 'propertyName(Method)': function(){ console.log(this.propertyName)}};
+const 객체 리터럴 = {'propertyName': 10, 'propertyName(Method)': function(){ console.log(this.propertyName)}};
 
-    var 객체 리터럴 = {};
-    객체 리터럴['propertyName'] = 10;
-    객체 리터럴['propertyName(Method)'] = function(){ console.log(this.propertyName) };
-    delete 객체 리터럴['propertyName']; // property delete -> confiualable일 때만!!
+var 객체 리터럴 = {};
+객체 리터럴['propertyName'] = 10;
+객체 리터럴['propertyName(Method)'] = function(){ console.log(this.propertyName) };
+delete 객체 리터럴['propertyName']; // property delete -> confiualable일 때만!!
 
-    var 객체 생성자 = new 객체를 만들려는 함수명();
-    객체 생성자['propertyName'] = 10;
-    객체 생성자['propertyName(Method)'] = function(){ console.log(this.propertyName) };
+var 객체 생성자 = new 객체를 만들려는 함수명();
+객체 생성자['propertyName'] = 10;
+객체 생성자['propertyName(Method)'] = function(){ console.log(this.propertyName) };
 ```
 
 ### 5-1. 생성자
@@ -239,6 +258,21 @@ name(인수);
   - 이 말은 즉, 여러 프로그래밍 언어에서 배열 요소는 **메모리에 연속된 공간에 저장 되지만, JS는 객체 그렇지 않다.**
   - ES6에서 `TypedArray에서는` 연속된 공간에 저장된다.
 - 객체이기 때문에 delete가 가능한 프로퍼티가 있으면 **희소 배열로** 0 부터 시작되지 않은 배열이 만들어 질 수 있다.
+
+```js
+var a = [];
+a[1] = 2;
+a; // [empty, 2]
+a.length; // 2
+
+a.forEach((data, idx) => console.log(data, idx));
+// 2 1 => 0이 넘겨짐
+
+var s = a[Symbol.iterator]();
+for (a of s) console.log(a);
+// undefined
+// 2
+```
 
 ## Reference
 

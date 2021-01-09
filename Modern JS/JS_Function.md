@@ -5,7 +5,7 @@
   - [함수 선언 vs 함수 표현식](#함수-선언-vs-함수-표현식)
     - [호이스팅](#호이스팅)
   - [Function 인자 가변 길이 인수(Arguments 객체)](#function-인자-가변-길이-인수arguments-객체)
-  - [[ [Prototype] ] 접근자 \_\_proto\_\_ 프로퍼티](#-prototype--접근자-__proto__-프로퍼티)
+  - [\[\[Prototype\]\] 접근자 \_\_proto\_\_ 프로퍼티](#prototype-접근자-__proto__-프로퍼티)
   - [prototype 객체 변경](#prototype-객체-변경)
   - [prototype에 프로퍼티 할당과 호출](#prototype에-프로퍼티-할당과-호출)
   - [실행 컨텍스트(Excution Context)](#실행-컨텍스트excution-context)
@@ -104,10 +104,10 @@ var hello = (x, y) => x * y; // 화살표 함수
   })(2, 2);
   ```
 
-## [ [Prototype] ] 접근자 \_\_proto\_\_ 프로퍼티
+## \[\[Prototype\]\] 접근자 \_\_proto\_\_ 프로퍼티
 
-- `모든 객체는` [ [Prototype] ]이라는 내부 슬롯이 있다.
-- [ [Prototype] ] 내부 슬롯은 **Prototype 객체를 가리킨다.**
+- `모든 객체는` \[\[Prototype\]\]이라는 내부 슬롯이 있다.
+- \[\[Prototype\]\] 내부 슬롯은 **Prototype 객체를 가리킨다.**
   - 프로토타입 객체란 프로토타입 기반으로 **상속을 구현하기 위해 사용된다.**
   - 내부 슬롯을 직접 접근을 못하므로 **`__proto__ 접근자 프로퍼티로` 접근을 한다.**
 - 즉, 프로토타입 객체는 다른 객체에 공유 프로퍼티를 제공하는 객체를 말한다.
@@ -213,7 +213,7 @@ let lazy = {
   - 스코프는 `식별자를 검색하는 매커니즘이다.`
   - [Variable Object + All parent(VO)]
     - 리스트 형식으로 현재 실행 컨텍스트의 활성 객체를 선두로 시작하여 상위 컨텍스트의 활성 객체를 가리키며 마지막으로 GO를 가리킨다.
-  - 함수 프로퍼티인 `[ [Scope] ]`로 참조한다.
+  - 함수 프로퍼티인 `[[Scope]]`로 참조한다.
 - this
   - context object : 함수를 실행시킨 객체, 전역 코드는 window(브라우저)로 부여한다.
 

@@ -12,6 +12,7 @@
 
   - Spec
   - Expressions vs Statement
+    - literal
   - Data Type
     - typeof 연산자의 반환 값
     - 산술 연산
@@ -29,7 +30,7 @@
   - 함수 선언 vs 함수 표현식
     - 호이스팅
   - Function 인자 가변 길이 인수(Arguments 객체)
-  - [ [Prototype] ] 접근자 \_\_proto\_\_ 프로퍼티
+  - \[\[Prototype\]\] 접근자 \_\_proto\_\_ 프로퍼티
   - prototype 객체 변경
   - prototype에 프로퍼티 할당과 호출
   - 실행 컨텍스트(Excution Context)
