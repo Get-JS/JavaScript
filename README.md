@@ -61,6 +61,12 @@
   - super 키워드와 [[HomeObject]]
   - instanceof
 
+- [JS Promise](./Modern%20JS/../Modern%20JS/JS_Promise.md)
+
+  - Promise 생성
+  - async await
+  - 마이크로태스크
+
 **[위로](#javascript)**
 
 ## ES2015
