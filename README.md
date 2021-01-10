@@ -51,6 +51,7 @@
     - function 생성자
     - class 생성자
     - {} 리턴 new vs don't use new keyword
+  - this (\*\*)
   - allow function
 
 - [JS class](./Modern%20JS/JS_class.md)

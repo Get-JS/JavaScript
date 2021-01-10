@@ -10,7 +10,8 @@
     - [function 생성자](#function-생성자)
     - [class 생성자](#class-생성자)
     - [{} 리턴 new vs don't use new keyword](#-리턴-new-vs-dont-use-new-keyword)
-  - [allow function](#allow-function)
+  - [arrow function](#arrow-function)
+  - [this (\*\*)](#this-)
   - [Reference](#reference)
 
 ## new 연산자 역할
@@ -219,12 +220,133 @@ a.who() === a.ref; // false
 window.name; // "yjkwon07"
 ```
 
-## allow function
+## arrow function
 
 - [화살표 함수](../ES2018/4.화살표%20함수.js)
 - [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/%EC%95%A0%EB%A1%9C%EC%9A%B0_%ED%8E%91%EC%85%98)
-  - 화살표 함수 표현(arrow function expression)은 function 표현에 비해 구문이 짧고 자신의 this, arguments, super 또는 new.target을 바인딩 하지 않는다.
-  - 화살표 함수는 항상 익명이다. 이 함수 표현은 메소드 함수가 아닌 곳에 가장 적합하다. 그래서 생성자로서 사용할 수 없다.
+
+  - 화살표 함수 표현(arrow function expression)은 function 표현에 비해 구문이 짧고 자신의 `this`, `arguments`, `super`, `prototype`, `yield` 또는 `new.target`을 **바인딩 하지 않는다.**
+  - 화살표 함수는 **항상 익명이다.** 이 함수 표현은 메소드 함수가 아닌 곳에 가장 적합하다. 그래서 **생성자로서 사용할 수 없다.**
+
+> 화살표 함수는 **자신의 this가 없습니다.** 대신 화살표 함수를 둘러싸는 `렉시컬 범위(lexical scope)의 this가 사용됩니다.`
+> 화살표 함수는 일반 변수 조회 규칙(normal variable lookup rules)을 따릅니다. 때문에 **현재 범위에서 존재하지 않는 this를 찾을 때**, 화살표 함수는 `바로 바깥 범위에서` `this를` 찾는것으로 검색을 끝내게 됩니다.
+
+## this (\*\*)
+
+- arrow function은 this를 EC에서 생성된 binding된 this를 갖게 된다.
+
+```js
+class A {
+  whoMethod() {
+    console.log("whoMethod", this);
+  }
+  whoarrow = () => {
+    // 멤버 변수
+    console.log("whoarrow ", this);
+  };
+}
+
+const classA = new A();
+classA.whoMethod(); // classA
+classA.whoarrow(); // classA
+
+const aMethod = classA.whoMethod;
+aMethod(); // undefined
+const aarrow = classA.whoarrow;
+aarrow(); // classA
+```
+
+```js
+function A() {}
+A.prototype.whoFunction = function () {
+  console.log("whoFunction", this);
+};
+A.prototype.whoarrow = () => {
+  console.log("whoarrow ", this);
+};
+
+const functionA = new A();
+functionA.whoFunction(); // functionA
+functionA.whoarrow(); // global
+
+const aMethod = functionA.whoFunction;
+aMethod(); // global
+const aarrow = functionA.whoarrow;
+aarrow(); // global
+```
+
+```js
+function A() {
+  function whoFunction() {
+    console.log("whoFunction", this);
+  }
+  const whoarrow = () => {
+    console.log("whoarrow ", this);
+  };
+  return {
+    whoFunction,
+    whoarrow,
+  };
+}
+
+const functionA = new A();
+functionA.whoFunction(); // {}
+functionA.whoarrow(); // A
+
+const aFunction = functionA.whoFunction;
+aFunction(); // global
+const aarrow = functionA.whoarrow;
+aarrow(); // A
+```
+
+```js
+function A() {
+  function whoFunction() {
+    console.log("whoFunction", this);
+  }
+  const whoarrow = () => {
+    console.log("whoarrow ", this);
+  };
+  return {
+    whoFunction,
+    whoarrow,
+  };
+}
+
+const functionA = A();
+functionA.whoFunction(); // {}
+functionA.whoarrow(); // global
+
+const aFunction = functionA.whoFunction;
+aFunction(); // global
+const aarrow = functionA.whoarrow;
+aarrow(); // global
+```
+
+```js
+const ObjectA = {
+  whoFunction: function () {
+    console.log("whoFunction", this);
+  },
+  whoMethod() {
+    console.log("whoMethod", this);
+  },
+  whoarrow: () => {
+    console.log("whoarrow ", this);
+  },
+};
+
+ObjectA.whoFunction(); // ObjectA
+ObjectA.whoMethod(); // ObjectA
+ObjectA.whoarrow(); // global
+
+const ObjectAFunction = ObjectA.whoFunction;
+ObjectAFunction(); // global
+const ObjectAMethod = ObjectA.whoMethod;
+ObjectAMethod(); // global
+const ObjectAarrow = ObjectA.whoarrow;
+ObjectAarrow(); // global
+```
 
 ## Reference
 
